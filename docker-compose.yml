@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  db:
+    container_name: "tuum_database"
+    image: postgres:11-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      # NB! new databases are only added, if on startup volume for db is empty!
+      # either recreate the volume or add new databases manually via sql with CREATE database "database-name"
+      - >-
+        POSTGRES_MULTIPLE_DATABASES=
+        "bank-account",
+        "bank-account-test"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+      - pgdata:/var/lib/postgresql/data
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'tuum_rabbitmq'
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+volumes: 
+     pgdata:
