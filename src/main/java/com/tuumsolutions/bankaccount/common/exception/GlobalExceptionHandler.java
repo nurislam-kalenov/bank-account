@@ -1,5 +1,6 @@
 package com.tuumsolutions.bankaccount.common.exception;
 
+import com.tuumsolutions.bankaccount.common.model.error.EntityExistErrorResponse;
 import com.tuumsolutions.bankaccount.common.model.error.EntityNotFoundErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -37,5 +38,16 @@ public class GlobalExceptionHandler {
         response.setStatus(HttpStatus.NOT_FOUND.value());
 
         return new EntityNotFoundErrorResponse(e);
+    }
+
+    @ExceptionHandler(EntityExistException.class)
+    @ResponseBody
+    public EntityExistErrorResponse handleValidationException(
+            HttpServletRequest request, HttpServletResponse response, EntityExistException e
+    ) {
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setStatus(HttpStatus.CONFLICT.value());
+
+        return new EntityExistErrorResponse(e);
     }
 }

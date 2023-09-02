@@ -1,10 +1,10 @@
 package com.tuumsolutions.bankaccount.common.model.error;
 
-import com.tuumsolutions.bankaccount.common.exception.EntityNotFoundException;
+import com.tuumsolutions.bankaccount.common.exception.EntityExistException;
 import lombok.Getter;
 
 @Getter
-public class EntityNotFoundErrorResponse {
+public class EntityExistErrorResponse {
 
     private final String entity;
 
@@ -14,7 +14,7 @@ public class EntityNotFoundErrorResponse {
 
     private final String message;
 
-    public EntityNotFoundErrorResponse(EntityNotFoundException e) {
+    public EntityExistErrorResponse(EntityExistException e) {
         entity = e.getEntity();
         field = e.getField();
         value = e.getValue();

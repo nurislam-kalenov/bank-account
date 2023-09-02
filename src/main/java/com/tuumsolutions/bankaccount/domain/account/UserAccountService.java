@@ -1,7 +1,7 @@
 package com.tuumsolutions.bankaccount.domain.account;
 
 import com.tuumsolutions.bankaccount.domain.account.entity.Account;
-import com.tuumsolutions.bankaccount.domain.account.entity.User;
+import com.tuumsolutions.bankaccount.domain.account.entity.UserAccount;
 import com.tuumsolutions.bankaccount.domain.account.repository.CustomerAccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class CustomerAccountService {
+public class UserAccountService {
 
     private final CustomerAccountRepository customerAccountRepository;
 
@@ -18,16 +18,18 @@ public class CustomerAccountService {
         return customerAccountRepository.existByCustomerId(customerId) >= 1;
     }
 
-    public Optional<User> findCustomerById(long id) {
-        return customerAccountRepository.findCustomerById(id);
+    public Optional<UserAccount> findUserAccountById(long id) {
+        return customerAccountRepository.findUserAccountById(id);
     }
 
-    public long saveUser(User user) {
-        return customerAccountRepository.insertCustomer(user);
+    public UserAccount saveUser(UserAccount userAccount) {
+         customerAccountRepository.insertCustomer(userAccount);
+         return userAccount;
     }
 
-    public long saveAccount(Account account) {
-        return customerAccountRepository.insertAccount(account);
+    public Account saveAccount(Account account) {
+         customerAccountRepository.insertAccount(account);
+         return account;
     }
 
 }

@@ -2,9 +2,9 @@ package com.tuumsolutions.bankaccount.domain.account.command;
 
 import com.tuumsolutions.bankaccount.common.Command;
 import com.tuumsolutions.bankaccount.common.exception.EntityExistException;
-import com.tuumsolutions.bankaccount.domain.account.CustomerAccountService;
+import com.tuumsolutions.bankaccount.domain.account.UserAccountService;
 import com.tuumsolutions.bankaccount.domain.account.entity.Account;
-import com.tuumsolutions.bankaccount.domain.account.entity.User;
+import com.tuumsolutions.bankaccount.domain.account.entity.UserAccount;
 import com.tuumsolutions.bankaccount.domain.model.CountryCode;
 import com.tuumsolutions.bankaccount.domain.model.Currency;
 import lombok.Builder;
@@ -22,31 +22,39 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CreateCustomerAccountCommand
-        implements Command<CreateCustomerAccountCommand.Parameters, CreateCustomerAccountCommand.Output> {
+public class CreateUserAccountCommand
+        implements Command<CreateUserAccountCommand.Parameters, CreateUserAccountCommand.Output> {
 
-    private final CustomerAccountService customerAccountService;
+    private final UserAccountService userAccountService;
+
     private static final BigDecimal DEFAULT_AMOUNT = BigDecimal.ZERO;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Output execute(Parameters parameters) {
-        if (customerAccountService.isCustomerExist(parameters.getCustomerId())) {
-            throw new EntityExistException(User.class, "customerId", parameters.getCustomerId().toString());
+        if (userAccountService.isCustomerExist(parameters.getCustomerId())) {
+            throw new EntityExistException(UserAccount.class.getSimpleName(),
+                    "customerId",
+                    parameters.getCustomerId().toString(),
+                    "Account already exist");
         }
 
-        long userAccountId = customerAccountService.saveUser(User.builder()
-                .customerId(parameters.customerId)
-                .countryCode(parameters.countryCode)
-                .build());
+        var userAccount = userAccountService.saveUser(toUserAccount(parameters));
 
         parameters.getCurrencies().forEach(currency ->
-                customerAccountService.saveAccount(Account.builder()
+                userAccountService.saveAccount(Account.builder()
                         .amount(DEFAULT_AMOUNT)
                         .currency(currency)
-                        .userAccountId(userAccountId)
+                        .userAccountId(userAccount.getId())
                         .build()));
 
-        return toOutput(parameters, userAccountId);
+        return toOutput(parameters, userAccount.getId());
+    }
+
+    private UserAccount toUserAccount(Parameters parameters) {
+        var model = new UserAccount();
+        model.setCustomerId(parameters.getCustomerId());
+        model.setCountryCode(parameters.getCountryCode());
+        return model;
     }
 
     private Output toOutput(Parameters parameters, Long userAccountId) {
@@ -78,7 +86,7 @@ public class CreateCustomerAccountCommand
 
         @Getter
         @Builder
-        static class Account {
+        public static class Account {
             private final Currency currency;
             private final BigDecimal amount;
         }

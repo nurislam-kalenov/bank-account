@@ -5,10 +5,11 @@ import lombok.*;
 
 import java.util.List;
 
+@Getter
 @Setter
-@Builder
 @EqualsAndHashCode
-public class User {
+@NoArgsConstructor
+public class UserAccount {
     private Long id;
     private Long customerId;
     private CountryCode countryCode;
