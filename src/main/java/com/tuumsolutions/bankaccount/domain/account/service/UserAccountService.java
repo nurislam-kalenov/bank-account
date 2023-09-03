@@ -2,7 +2,7 @@ package com.tuumsolutions.bankaccount.domain.account.service;
 
 import com.tuumsolutions.bankaccount.domain.account.entity.Account;
 import com.tuumsolutions.bankaccount.domain.account.entity.UserAccount;
-import com.tuumsolutions.bankaccount.domain.account.repository.CustomerAccountRepository;
+import com.tuumsolutions.bankaccount.domain.account.repository.UserAccountRepository;
 import com.tuumsolutions.bankaccount.common.model.Currency;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,34 +14,34 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserAccountService {
 
-    private final CustomerAccountRepository customerAccountRepository;
+    private final UserAccountRepository userAccountRepository;
 
     public boolean isCustomerExist(long customerId) {
-        return customerAccountRepository.existByCustomerId(customerId) >= 1;
+        return userAccountRepository.existByCustomerId(customerId) >= 1;
     }
 
     public Optional<UserAccount> findUserAccountById(long id) {
-        return customerAccountRepository.findUserAccountById(id);
+        return userAccountRepository.findUserAccountById(id);
     }
 
     public Optional<Account> findUserAccountByIdAndCurrency(long userAccountId, Currency currency) {
-        return customerAccountRepository.findAccountByUserAccountIdAndCurrency(userAccountId, currency);
+        return userAccountRepository.findAccountByUserAccountIdAndCurrency(userAccountId, currency);
     }
 
     public UserAccount saveUser(UserAccount userAccount) {
-        customerAccountRepository.insertUserAccount(userAccount);
+        userAccountRepository.insertUserAccount(userAccount);
         return userAccount;
     }
 
     public Account saveAccount(Account account) {
-        customerAccountRepository.insertAccount(account);
+        userAccountRepository.insertAccount(account);
         return account;
     }
 
     public void optimisticUpdateAccountAmount(Long accountId,
                                               BigDecimal amount,
                                               Long version) {
-        int rowsAffected = customerAccountRepository.optimisticUpdateAccountAmount(
+        int rowsAffected = userAccountRepository.optimisticUpdateAccountAmount(
                 accountId, amount, version, version + 1);
         if (rowsAffected == 0) {
             System.out.println("ERROR!!@!@");

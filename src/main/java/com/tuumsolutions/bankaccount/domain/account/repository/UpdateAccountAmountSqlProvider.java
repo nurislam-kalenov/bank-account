@@ -1,6 +1,4 @@
 package com.tuumsolutions.bankaccount.domain.account.repository;
-
-
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 

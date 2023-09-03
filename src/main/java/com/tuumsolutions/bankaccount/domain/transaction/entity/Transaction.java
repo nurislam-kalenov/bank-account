@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -15,9 +14,8 @@ import java.time.LocalDateTime;
 public class Transaction {
     private final Long id;
     private final Long accountId;
-    private final TransactionType transactionType;
-    private final LocalDateTime createdDate;
-    private final BigDecimal amount;
     private final Currency currency;
+    private final BigDecimal amount;
     private final String description;
+    private final TransactionType transactionType;
 }

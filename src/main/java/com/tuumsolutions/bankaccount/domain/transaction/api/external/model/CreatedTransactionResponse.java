@@ -13,11 +13,12 @@ import java.math.BigDecimal;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TransactionResponse {
+public class CreatedTransactionResponse {
     private Long transactionId;
     private Long accountId;
     private TransactionType transactionType;
     private BigDecimal amount;
+    private BigDecimal amountAfterTransaction;
     private Currency currency;
     private String description;
 }

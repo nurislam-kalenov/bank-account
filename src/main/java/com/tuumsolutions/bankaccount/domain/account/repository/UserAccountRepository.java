@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Mapper
-public interface CustomerAccountRepository {
+public interface UserAccountRepository {
 
     @Select("SELECT count(id) FROM user_account WHERE customer_id = #{customerId}")
     int existByCustomerId(long customerId);
@@ -25,7 +25,6 @@ public interface CustomerAccountRepository {
 
     @Select("SELECT * FROM account WHERE user_account_id = #{userAccountId}")
     Account findAccountByUserAccountId(long userAccountId);
-
 
     @Select("SELECT * FROM account WHERE user_account_id = #{userAccountId} and currency = #{currency}")
     Optional<Account> findAccountByUserAccountIdAndCurrency(long userAccountId, Currency currency);
