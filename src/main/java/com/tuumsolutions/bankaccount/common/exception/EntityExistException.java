@@ -19,17 +19,4 @@ public class EntityExistException extends TuumException {
         this.message = message;
     }
 
-    public EntityExistException(String message, String entity) {
-        super(message);
-
-        this.entity = entity;
-        this.field = null;
-        this.value = null;
-        this.message = null;
-
-    }
-
-    public EntityExistException(Class<?> entity, String field, String value) {
-        this(entity.getSimpleName(), field, value, null);
-    }
 }

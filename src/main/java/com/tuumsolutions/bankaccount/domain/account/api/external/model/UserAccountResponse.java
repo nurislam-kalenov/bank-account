@@ -1,6 +1,6 @@
 package com.tuumsolutions.bankaccount.domain.account.api.external.model;
 
-import com.tuumsolutions.bankaccount.domain.model.Currency;
+import com.tuumsolutions.bankaccount.common.model.Currency;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

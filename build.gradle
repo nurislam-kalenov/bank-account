@@ -26,15 +26,12 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${springBootVersion}"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${springBootVersion}"
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
-    // https://mvnrepository.com/artifact/org.flywaydb/flyway-core
     implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.5.13'
-    // https://mvnrepository.com/artifact/org.postgresql/postgresql
     runtimeOnly group: 'org.postgresql', name: 'postgresql', version: '42.6.0'
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
 

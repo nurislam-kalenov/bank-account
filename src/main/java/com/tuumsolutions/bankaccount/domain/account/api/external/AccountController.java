@@ -5,13 +5,13 @@ import com.tuumsolutions.bankaccount.domain.account.api.external.model.UserAccou
 import com.tuumsolutions.bankaccount.domain.account.api.external.model.UserAccountResponse;
 import com.tuumsolutions.bankaccount.domain.account.command.CreateUserAccountCommand;
 import com.tuumsolutions.bankaccount.domain.account.command.GetUserAccountCommand;
+import com.tuumsolutions.bankaccount.domain.account.mapper.AccountMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Validated
@@ -22,47 +22,19 @@ public class AccountController {
 
     private final GetUserAccountCommand getUserAccountCommand;
     private final CreateUserAccountCommand createUserAccountCommand;
+    private final AccountMapper accountMapper;
 
     @GetMapping("/{userAccountId}")
     public Response<UserAccountResponse> getUserAccount(@PathVariable(name = "userAccountId") Long userAccountId) {
-        return new Response<>(toResponse(getUserAccountCommand.execute(userAccountId)));
+        return new Response<>(accountMapper.toResponse(getUserAccountCommand.execute(userAccountId)));
     }
 
     @PostMapping
     public Response<UserAccountResponse> getUserAccount(@RequestBody @Valid UserAccountRequest request
     ) {
-        return new Response<>(toResponse(createUserAccountCommand.execute(
-                CreateUserAccountCommand.Parameters.builder()
-                        .countryCode(request.getCountryCode())
-                        .customerId(request.getCustomerId())
-                        .currencies(request.getCurrencies())
-                        .build())));
+        return new Response<>(accountMapper.toResponse(
+                createUserAccountCommand.execute(
+                        accountMapper.toAccountCommandParameters(request))));
     }
-
-    private UserAccountResponse toResponse(CreateUserAccountCommand.Output output) {
-        return UserAccountResponse.builder()
-                .accountId(output.getUserAccountId())
-                .customerId(output.getCustomerId())
-                .accounts(output.getAccounts().stream().map(
-                        account -> UserAccountResponse.Account.builder()
-                                .amount(account.getAmount())
-                                .currency(account.getCurrency())
-                                .build()).collect(Collectors.toList()))
-                .build();
-    }
-
-
-    private UserAccountResponse toResponse(GetUserAccountCommand.Output output) {
-        return UserAccountResponse.builder()
-                .accountId(output.getUserAccountId())
-                .customerId(output.getCustomerId())
-                .accounts(output.getAccounts().stream().map(
-                        account -> UserAccountResponse.Account.builder()
-                                .amount(account.getAmount())
-                                .currency(account.getCurrency())
-                                .build()).collect(Collectors.toList()))
-                .build();
-    }
-
 
 }

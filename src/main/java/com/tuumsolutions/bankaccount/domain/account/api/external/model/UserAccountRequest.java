@@ -1,14 +1,14 @@
 package com.tuumsolutions.bankaccount.domain.account.api.external.model;
 
-import com.tuumsolutions.bankaccount.domain.model.CountryCode;
-import com.tuumsolutions.bankaccount.domain.model.Currency;
+import com.tuumsolutions.bankaccount.common.model.CountryCode;
+import com.tuumsolutions.bankaccount.common.model.Currency;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Setter
@@ -17,9 +17,9 @@ import java.util.List;
 @Builder
 public class UserAccountRequest {
 
-    @NotBlank
+    @NotNull
     private final Long customerId;
-    @NotBlank
+    @NotNull
     private final CountryCode countryCode;
     @NotEmpty
     private final List<Currency> currencies;

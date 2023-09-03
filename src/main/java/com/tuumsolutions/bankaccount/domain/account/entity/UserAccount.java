@@ -1,6 +1,6 @@
 package com.tuumsolutions.bankaccount.domain.account.entity;
 
-import com.tuumsolutions.bankaccount.domain.model.CountryCode;
+import com.tuumsolutions.bankaccount.common.model.CountryCode;
 import lombok.*;
 
 import java.util.List;
