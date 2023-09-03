@@ -46,7 +46,6 @@ public class AccountMapper {
                 .build();
     }
 
-
     public UserAccount toUserAccount(CreateUserAccountCommand.Parameters parameters) {
         var model = new UserAccount();
         model.setCustomerId(parameters.getCustomerId());
