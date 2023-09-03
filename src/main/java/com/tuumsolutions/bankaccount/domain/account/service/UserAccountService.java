@@ -1,9 +1,11 @@
 package com.tuumsolutions.bankaccount.domain.account.service;
 
+import com.tuumsolutions.bankaccount.common.exception.InvalidOperationException;
 import com.tuumsolutions.bankaccount.domain.account.entity.Account;
 import com.tuumsolutions.bankaccount.domain.account.entity.UserAccount;
 import com.tuumsolutions.bankaccount.domain.account.repository.UserAccountRepository;
 import com.tuumsolutions.bankaccount.common.model.Currency;
+import com.tuumsolutions.bankaccount.domain.transaction.entity.Transaction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -44,8 +46,11 @@ public class UserAccountService {
         int rowsAffected = userAccountRepository.optimisticUpdateAccountAmount(
                 accountId, amount, version, version + 1);
         if (rowsAffected == 0) {
-            System.out.println("ERROR!!@!@");
-            //throw error
+            throw new InvalidOperationException(
+                    Transaction.class.getSimpleName(),
+                    "id",
+                    accountId.toString(),
+                    "transaction is not valid");
         }
     }
 

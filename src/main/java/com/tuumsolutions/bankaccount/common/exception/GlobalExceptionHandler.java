@@ -2,6 +2,7 @@ package com.tuumsolutions.bankaccount.common.exception;
 
 import com.tuumsolutions.bankaccount.common.model.error.EntityExistErrorResponse;
 import com.tuumsolutions.bankaccount.common.model.error.EntityNotFoundErrorResponse;
+import com.tuumsolutions.bankaccount.common.model.error.InvalidOperationErrorResponse;
 import com.tuumsolutions.bankaccount.common.model.error.NoFundErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -69,6 +70,17 @@ public class GlobalExceptionHandler {
         response.setStatus(HttpStatus.CONFLICT.value());
 
         return new NoFundErrorResponse(e);
+    }
+
+    @ExceptionHandler(InvalidOperationException.class)
+    @ResponseBody
+    public InvalidOperationErrorResponse handleValidationException(
+            HttpServletRequest request, HttpServletResponse response, InvalidOperationException e
+    ) {
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setStatus(HttpStatus.CONFLICT.value());
+
+        return new InvalidOperationErrorResponse(e);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

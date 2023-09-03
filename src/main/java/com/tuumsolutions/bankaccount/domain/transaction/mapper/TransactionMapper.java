@@ -6,6 +6,8 @@ import com.tuumsolutions.bankaccount.domain.transaction.api.external.model.Creat
 import com.tuumsolutions.bankaccount.domain.transaction.api.external.model.TransactionResponse;
 import com.tuumsolutions.bankaccount.domain.transaction.command.CreateTransactionCommand;
 import com.tuumsolutions.bankaccount.domain.transaction.entity.Transaction;
+import com.tuumsolutions.bankaccount.domain.transaction.model.TransactionMessage;
+import com.tuumsolutions.bankaccount.domain.transaction.model.TransactionType;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -84,5 +86,16 @@ public class TransactionMapper {
 
     public List<TransactionResponse> toResponse(List<Transaction> transactions, Long accountId) {
         return transactions.stream().map(transaction -> toResponse(transaction, accountId)).collect(Collectors.toList());
+    }
+
+    public TransactionMessage toMessage(Long transactionId, CreateTransactionCommand.Parameters parameters) {
+        var model = new TransactionMessage();
+        model.setId(transactionId);
+        model.setTransactionType(TransactionType.IN);
+        model.setAmount(parameters.getAmount());
+        model.setAccountId(parameters.getUserAccountId());
+        model.setCurrency(parameters.getCurrency());
+        model.setDescription(parameters.getDescription());
+        return model;
     }
 }
