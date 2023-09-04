@@ -1,5 +1,6 @@
 package com.tuumsolutions.bankaccount.domain.account.mapper;
 
+import com.tuumsolutions.bankaccount.common.model.Currency;
 import com.tuumsolutions.bankaccount.domain.account.api.external.model.UserAccountRequest;
 import com.tuumsolutions.bankaccount.domain.account.api.external.model.UserAccountResponse;
 import com.tuumsolutions.bankaccount.domain.account.command.CreateUserAccountCommand;
@@ -9,6 +10,7 @@ import com.tuumsolutions.bankaccount.domain.account.entity.UserAccount;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @Component
@@ -42,7 +44,7 @@ public class AccountMapper {
         return CreateUserAccountCommand.Parameters.builder()
                 .countryCode(request.getCountryCode())
                 .customerId(request.getCustomerId())
-                .currencies(request.getCurrencies())
+                .currencies(new ArrayList<>(request.getCurrencies()))
                 .build();
     }
 
