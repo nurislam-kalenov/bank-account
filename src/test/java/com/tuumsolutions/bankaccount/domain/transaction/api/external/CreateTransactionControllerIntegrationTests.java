@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 )
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-public class CreateTransactionControllerIntegrationTests {
+class CreateTransactionControllerIntegrationTests {
 
     private static final String URL = "/v1/transaction";
 

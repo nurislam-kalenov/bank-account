@@ -43,7 +43,7 @@ tool: *JMeter*. API: POST `v1/transaction`.
 
 | Thread count            |  Loop count   |  Error Rate                 |  Throughput (ms)  |
 | ----------------------  |:-------------:| ---------------------------:| -----------------:|
-| 1                       | 10000         | 0.00%                       |141                |
+| 1                       | 10000         | 0.00%                       | 141               |
 | 10 (same account id)    | 10000         | 78.97%(optimistic locking)  | 2.4               |
 | 10                      | 10000         | 0.00%                       | 195               |
 | 50                      | 100000        | 0.00%                       | 221               |
@@ -58,7 +58,8 @@ tool: *JMeter*. API: POST `v1/transaction`.
    separately and set auto-scale. We can name it as 'Payment executor' service.
 2. Postgres database replication. There will be a lot of insert probably we should think about sharding.
 3. From my experience with similar system where it were Payment service -> Payment executor -> Payment Service
-   Provider (PSP) I would say using MQ is suitable.
+   Provider (PSP) I would say using Rabbit MQ is suitable(Transactional Messaging). 
+   However, if we need to aggregate, stream some info, or store events long time Kafka would be better here.  
 
 ## Feedback:
 
