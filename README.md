@@ -38,13 +38,13 @@ Creates all services and sets them up for you to be able to just start an applic
 6. System send message in universal JSON format since consumers can be non-Java system.
 7. 'Return a list of transactions' can be looked inefficient since there is no pagination.
 
-• Estimate on how many transactions can your account application can handle per second on your development machine Used
-tool: JMeter API: POST `v1/transaction` 1 user, 10000 loop count:
+• Estimate on how many transactions can your account application can handle per second on your development machine Used 
+tool: *JMeter*. API: POST `v1/transaction`.
 
-| Thread count  |  Loop count   |  Error Rate  |  Throughput (ms) |
+| Thread count            |  Loop count   |  Error Rate                 |  Throughput (ms)  |
 | ----------------------  |:-------------:| ---------------------------:| -----------------:|
 | 1                       | 10000         | 0.00%                       |141                |
-| 10 (same customer id)   | 10000         | 78.97%(optimistic locking)  | 2.4               |
+| 10 (same account id)    | 10000         | 78.97%(optimistic locking)  | 2.4               |
 | 10                      | 10000         | 0.00%                       | 195               |
 | 50                      | 100000        | 0.00%                       | 221               |
 | 70                      | 1000000       | 5.34%(db connection)        | 219               |
