@@ -5,12 +5,14 @@ import com.tuumsolutions.bankaccount.domain.transaction.model.TransactionType;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
 @Getter
 @Builder
 @EqualsAndHashCode
+@ToString
 public class Transaction {
     private final Long id;
     private final Long accountId;

@@ -1,18 +1,14 @@
 package com.tuumsolutions.bankaccount.domain.transaction.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tuumsolutions.bankaccount.common.model.Currency;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Setter
 @Getter
-@ToString
+@EqualsAndHashCode
 public class TransactionMessage implements Serializable {
     private Long id;
     private Long accountId;

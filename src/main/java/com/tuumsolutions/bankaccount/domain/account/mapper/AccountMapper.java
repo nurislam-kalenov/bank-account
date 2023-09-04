@@ -81,9 +81,11 @@ public class AccountMapper {
     }
 
     public UpdateAccountAmountCommand.Result toResult(UpdateAccountAmountCommand.Parameters parameters,
-                                                      BigDecimal amountAfterTransaction) {
+                                                      BigDecimal amountAfterTransaction,
+                                                      Long accountId) {
         return UpdateAccountAmountCommand.Result.builder()
                 .amount(parameters.getAmount())
+                .accountId(accountId)
                 .amountAfterTransaction(amountAfterTransaction)
                 .userAccountId(parameters.getUserAccountId())
                 .currency(parameters.getCurrency())

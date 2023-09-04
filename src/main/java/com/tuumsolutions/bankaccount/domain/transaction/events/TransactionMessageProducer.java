@@ -16,6 +16,7 @@ public class TransactionMessageProducer {
     private final RabbitTemplate rabbitTemplate;
 
     public void sendMsg(final TransactionMessage message) {
+        log.debug("send message: {}", message);
         rabbitTemplate.convertAndSend(TRANSACTIONS_TOPIC_NAME, "", message);
     }
 }

@@ -23,13 +23,12 @@ public class TransactionMapper {
                 .currency(parameters.getCurrency())
                 .transactionType(parameters.getTransactionType())
                 .userAccountId(parameters.getUserAccountId())
-                .amount(parameters.getAmount())
                 .build();
     }
 
-    public Transaction toModel(CreateTransactionCommand.Parameters parameters) {
+    public Transaction toModel(Long accountId, CreateTransactionCommand.Parameters parameters) {
         return Transaction.builder()
-                .accountId(parameters.getUserAccountId())
+                .accountId(accountId)
                 .amount(parameters.getAmount())
                 .currency(parameters.getCurrency())
                 .transactionType(parameters.getTransactionType())
@@ -73,6 +72,10 @@ public class TransactionMapper {
                 .build();
     }
 
+    public List<TransactionResponse> toResponse(List<Transaction> transactions, Long accountId) {
+        return transactions.stream().map(transaction -> toResponse(transaction, accountId)).collect(Collectors.toList());
+    }
+
     private TransactionResponse toResponse(Transaction transaction, Long accountId) {
         return TransactionResponse.builder()
                 .accountId(accountId)
@@ -82,10 +85,6 @@ public class TransactionMapper {
                 .currency(transaction.getCurrency())
                 .description(transaction.getDescription())
                 .build();
-    }
-
-    public List<TransactionResponse> toResponse(List<Transaction> transactions, Long accountId) {
-        return transactions.stream().map(transaction -> toResponse(transaction, accountId)).collect(Collectors.toList());
     }
 
     public TransactionMessage toMessage(Long transactionId, CreateTransactionCommand.Parameters parameters) {

@@ -32,6 +32,8 @@ public class CreateUserAccountCommand
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Result execute(Parameters parameters) {
+        log.info("create user account, customer id: {}", parameters.getCustomerId());
+
         if (userAccountService.isCustomerExist(parameters.getCustomerId())) {
             throw new EntityExistException(UserAccount.class.getSimpleName(),
                     "customerId",

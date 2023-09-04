@@ -8,6 +8,7 @@ import com.tuumsolutions.bankaccount.domain.transaction.mapper.TransactionMapper
 import com.tuumsolutions.bankaccount.domain.transaction.model.TransactionType;
 import com.tuumsolutions.bankaccount.domain.transaction.service.TransactionService;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +30,9 @@ public class CreateTransactionCommand
 
     @Transactional
     public Result execute(Parameters parameters) {
+        log.info("Transaction create by user id {}", parameters.getUserAccountId());
         var result = updateAccountAmountCommand.execute(transactionMapper.toParams(parameters));
-        var transaction = transactionService.saveTransaction(transactionMapper.toModel(parameters));
+        var transaction = transactionService.saveTransaction(transactionMapper.toModel(result.getAccountId(), parameters));
 
         transactionMessageProducer.sendMsg(transactionMapper.toMessage(transaction.getId(), parameters));
 
@@ -39,6 +41,7 @@ public class CreateTransactionCommand
 
     @Getter
     @Builder
+    @EqualsAndHashCode
     public static class Parameters {
         private final Long userAccountId;
         private final TransactionType transactionType;
@@ -49,6 +52,7 @@ public class CreateTransactionCommand
 
     @Getter
     @Builder
+    @EqualsAndHashCode
     public static class Result {
         private final Long transactionId;
         private final Long userAccountId;

@@ -55,7 +55,7 @@ tool: *JMeter*. API: POST `v1/transaction`.
    transactions per day, which is 2,000,000 transactions / 20^5 seconds = 20 transactions per second (TPS). 15-20 TPS is
    not a big number for a Postgres database. Anyway it is obvious that the transaction domain will be loaded more than
    the account module hundreds or even a thousand times. The solution would be to take out the transaction module
-   separately and set auto-scale. And we can call it 'Payment executor' service.
+   separately and set auto-scale. We can name it as 'Payment executor' service.
 2. Postgres database replication. There will be a lot of insert probably we should think about sharding.
 3. From my experience with similar system where it were Payment service -> Payment executor -> Payment Service
    Provider (PSP) I would say using MQ is suitable.

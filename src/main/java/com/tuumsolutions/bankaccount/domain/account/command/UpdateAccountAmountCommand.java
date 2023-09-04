@@ -10,6 +10,7 @@ import com.tuumsolutions.bankaccount.domain.account.mapper.AccountMapper;
 import com.tuumsolutions.bankaccount.domain.account.service.UserAccountService;
 import com.tuumsolutions.bankaccount.domain.transaction.model.TransactionType;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,7 @@ public class UpdateAccountAmountCommand
 
         userAccountService.optimisticUpdateAccountAmount(account.getId(), amountAfterTransaction, account.getVersion());
 
-        return accountMapper.toResult(parameters, amountAfterTransaction);
+        return accountMapper.toResult(parameters, amountAfterTransaction, account.getId());
     }
 
     private BigDecimal calculateAmount(UpdateAccountAmountCommand.Parameters request, BigDecimal accountAmount) {
@@ -72,6 +73,7 @@ public class UpdateAccountAmountCommand
 
     @Getter
     @Builder
+    @EqualsAndHashCode
     public static class Parameters {
         private final Long userAccountId;
         private final BigDecimal amount;
@@ -81,8 +83,10 @@ public class UpdateAccountAmountCommand
 
     @Getter
     @Builder
+    @EqualsAndHashCode
     public static class Result {
         private final Long userAccountId;
+        private final Long accountId;
         private final TransactionType transactionType;
         private final BigDecimal amount;
         private final BigDecimal amountAfterTransaction;

@@ -37,6 +37,12 @@ public interface UserAccountRepository {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     void insertAccount(Account entity);
 
+    @Insert("INSERT INTO account (id, user_account_id, currency, amount) VALUES (#{id}, #{userAccountId}, #{currency}, #{amount})")
+    void insertAccountManualId(Account entity);
+
+    @Insert("INSERT INTO user_account (id, customer_id, country_code) VALUES (#{id}, #{customerId}, #{countryCode})")
+    void insertUserAccountManualId(UserAccount entity);
+
     @UpdateProvider(type = UpdateAccountAmountSqlProvider.class, method = "optimisticUpdateAccountAmount")
     int optimisticUpdateAccountAmount(@Param("accountId") Long accountId,
                                       @Param("amount") BigDecimal amount,

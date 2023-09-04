@@ -7,11 +7,13 @@ import com.tuumsolutions.bankaccount.domain.account.repository.UserAccountReposi
 import com.tuumsolutions.bankaccount.common.model.Currency;
 import com.tuumsolutions.bankaccount.domain.transaction.entity.Transaction;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class UserAccountService {
@@ -46,6 +48,7 @@ public class UserAccountService {
         int rowsAffected = userAccountRepository.optimisticUpdateAccountAmount(
                 accountId, amount, version, version + 1);
         if (rowsAffected == 0) {
+            log.warn("Account balance update conflict,  accountId: {}", accountId);
             throw new InvalidOperationException(
                     Transaction.class.getSimpleName(),
                     "id",

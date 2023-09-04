@@ -23,6 +23,7 @@ public class TransactionRequest {
     private final Long accountId;
     @NotNull
     private final TransactionType transactionType;
+    @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer = 6, fraction = 3)
     private final BigDecimal amount;
