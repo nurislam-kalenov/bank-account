@@ -8,6 +8,7 @@ Code and scripts required to get required applications running in your machine.
 
 * Docker
 * Docker Compose
+* Gradle
 
 ## Staring all required services
 
