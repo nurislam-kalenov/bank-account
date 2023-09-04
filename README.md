@@ -27,7 +27,7 @@ Creates all services and sets them up for you to be able to just start an applic
 
 • Explanation of important choices in your solution
 
-1. 'Command' or 'UseCase' design. Instead of traditional service-method design I decided to use approach from Clean
+1. 'Command' or 'UseCase' design. Instead of traditional 3 layered architecture (View-Service-DAO) design I decided to use approach from Clean
    Architecture. Each operation is independent and isolated and do only what it promises. Predictable and easy to test.
    Plus there are 2 independent domains that easy to split and move to another module/microservice.
 2. Custom response model. Custom error messages (GlobalExceptionHandler). It needs to be flexible and independent from
