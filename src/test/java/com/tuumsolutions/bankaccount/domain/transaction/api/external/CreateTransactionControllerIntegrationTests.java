@@ -20,7 +20,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import static com.tuumsolutions.bankaccount.domain.account.AccountTestHelper.ACCOUNT_ID;
 import static com.tuumsolutions.bankaccount.domain.account.AccountTestHelper.USER_ACCOUNT_ID;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.is;
@@ -54,7 +56,8 @@ class CreateTransactionControllerIntegrationTests {
     @BeforeEach
     void setup() {
         testDatabaseHelper.cleanDatabase();
-        accountTestHelper.insertUserAccount(accountTestHelper.createUserAccount(BigDecimal.ONE, Currency.EUR));
+         accountTestHelper.insertUserAccount(accountTestHelper.createUserAccount(
+                List.of(accountTestHelper.createAccount(ACCOUNT_ID, BigDecimal.ONE, Currency.EUR))));
     }
 
     @Test

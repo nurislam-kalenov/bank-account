@@ -30,24 +30,24 @@ public class AccountTestHelper {
                         .amount(account.getAmount())
                         .currency(account.getCurrency())
                         .userAccountId(userAccount.getId())
-                        .id(ACCOUNT_ID)
+                        .id(account.getId())
                         .build()));
 
         return userAccount;
     }
 
-    public UserAccount createUserAccount(BigDecimal amount, Currency currency) {
+    public UserAccount createUserAccount(List<Account> accounts) {
         var userAccount = new UserAccount();
         userAccount.setCountryCode(CountryCode.EE);
         userAccount.setCustomerId(CUSTOMER_ID);
         userAccount.setId(USER_ACCOUNT_ID);
-        userAccount.setAccounts(List.of(createAccount(amount, currency)));
+        userAccount.setAccounts(accounts);
         return userAccount;
     }
 
-    private Account createAccount( BigDecimal amount, Currency currency) {
+    public Account createAccount(Long accountId,  BigDecimal amount, Currency currency) {
         return Account.builder()
-                .id(ACCOUNT_ID)
+                .id(accountId)
                 .amount(amount)
                 .currency(currency)
                 .version(1L)

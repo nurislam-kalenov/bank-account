@@ -14,6 +14,12 @@ public interface TransactionRepository {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     void insertTransaction(Transaction entity);
 
+    @Insert("INSERT INTO transaction (id, account_id, currency, amount, description, transaction_type)" +
+            " VALUES (#{id}, #{accountId},#{currency}, #{amount}, #{description}, #{transactionType})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    void insertTransactionManualId(Transaction entity);
+
+
     @Select("SELECT transaction.*  FROM transaction " +
             "JOIN account a ON a.id = transaction.account_id " +
             "JOIN user_account ua ON ua.id = a.user_account_id " +
