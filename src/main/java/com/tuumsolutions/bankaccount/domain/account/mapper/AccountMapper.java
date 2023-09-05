@@ -1,6 +1,5 @@
 package com.tuumsolutions.bankaccount.domain.account.mapper;
 
-import com.tuumsolutions.bankaccount.common.model.Currency;
 import com.tuumsolutions.bankaccount.domain.account.api.external.model.UserAccountRequest;
 import com.tuumsolutions.bankaccount.domain.account.api.external.model.UserAccountResponse;
 import com.tuumsolutions.bankaccount.domain.account.command.CreateUserAccountCommand;
