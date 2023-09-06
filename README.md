@@ -42,7 +42,7 @@ Creates all services and sets them up for you to be able to just start an applic
 • Estimate on how many transactions can your account application can handle per second on your development machine Used 
 tool: *JMeter*. API: POST `v1/transaction`.
 
-| Thread count            |  Loop count   |  Error Rate                 |  Throughput       |
+| Thread count            |  Loop count   |  Error Rate                 |  Throughput(sec)  |
 | ----------------------  |:-------------:| ---------------------------:| -----------------:|
 | 1                       | 10000         | 0.00%                       | 141               |
 | 10 (same account id)    | 10000         | 78.97%(optimistic locking)  | 2.4               |

@@ -34,7 +34,6 @@ class UpdateAccountAmountCommandUnitTest {
     private UserAccountService userAccountService;
     @Spy
     private AccountMapper accountMapper;
-
     @InjectMocks
     private UpdateAccountAmountCommand updateAccountAmountCommand;
 
