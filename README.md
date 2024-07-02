@@ -1,4 +1,4 @@
-# Tuum Bank Account Service
+# Bank Account Service
 
 # Local infrastructure for development
 
@@ -19,8 +19,8 @@ Creates all services and sets them up for you to be able to just start an applic
 ## Staring bank-account service
 
     gradle build
-    docker build -t tuumsolutions/bank-service .    
-    docker run -p 8080:8080 tuumsolutions/bank-service
+    docker build -t solutions/bank-service .    
+    docker run -p 8080:8080 solutions/bank-service
     or just press green button in IDE and fly:)
 
 ## Task questions:
